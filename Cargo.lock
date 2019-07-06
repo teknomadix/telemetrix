@@ -165,7 +165,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "telemetrics"
+name = "telemetrix"
 version = "0.1.0"
 dependencies = [
  "unbounded-gpsd 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",

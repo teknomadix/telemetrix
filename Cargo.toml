@@ -1,8 +1,11 @@
 [package]
-name = "telemetrics"
+name = "telemetrix"
 version = "0.1.0"
 authors = ["Luke Nimtz <luke.nimtz@gmail.com>"]
 edition = "2018"
+
+[[bin]]
+name = "telemetrix"
 
 [dependencies]
 unbounded-gpsd = "0.4.3"

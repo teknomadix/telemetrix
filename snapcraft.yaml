@@ -1,0 +1,29 @@
+name: telemetrix
+version: git
+summary: Telemetry and battery monitoring
+description: |
+  Work in progress
+
+# grade: devel
+
+confinement: devmode
+base: core18
+
+architectures:
+  - build-on: armhf
+    run-on: armhf
+
+parts:
+  telemetrix:
+    plugin: rust
+    source: .
+    # workaround for https://forum.snapcraft.io/t/issue-with-rebuilding-a-rust-snap/10830
+    override-build: |
+      [ -f "$SNAPCRAFT_PART_INSTALL/bin/telemetrix" ] && rm "$SNAPCRAFT_PART_INSTALL/bin/telemetrix"
+      snapcraftctl build
+    stage-packages:
+      - gpsd
+
+apps:
+  telemetrix:
+    command: bin/telemetrix
