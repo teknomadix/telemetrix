@@ -30,4 +30,4 @@ apps:
 
   gpsd:
     daemon: simple
-    command: gpsd
+    command: gpsd /var/run/gpsd.sock
