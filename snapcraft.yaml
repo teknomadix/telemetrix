@@ -24,6 +24,9 @@ apps:
   telemetrix:
     command: telemetrix
 
+  gpsdctl:
+    command: gpsdctl
+
   gpsd:
     daemon: simple
     command: gpsd -N -F /var/run/gpsd.sock
