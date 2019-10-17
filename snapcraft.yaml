@@ -17,17 +17,15 @@ parts:
   telemetrix:
     plugin: rust
     source: .
-    # workaround for https://forum.snapcraft.io/t/issue-with-rebuilding-a-rust-snap/10830
-    override-build: |
-      [ -f "$SNAPCRAFT_PART_INSTALL/bin/telemetrix" ] && rm "$SNAPCRAFT_PART_INSTALL/bin/telemetrix"
-      snapcraftctl build
     stage-packages:
       - gpsd
 
 apps:
   telemetrix:
-    command: bin/telemetrix
+    command: telemetrix
 
   gpsd:
     daemon: simple
-    command: gpsd /var/run/gpsd.sock
+    command: gpsd -N -F /var/run/gpsd.sock
+    plugs:
+      - network-bind
