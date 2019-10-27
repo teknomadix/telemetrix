@@ -1,7 +1,13 @@
+use std::thread;
 use unbounded_gpsd::{types::*, GpsdConnection};
 
 fn main() {
     println!("Hello, world!");
+
+    thread::spawn(move || {
+        // some work here
+    });
+
     let mut gpsd_con = GpsdConnection::new("localhost:2947").expect("connection failed");
     gpsd_con.watch(true).expect("watch failed");
     loop {

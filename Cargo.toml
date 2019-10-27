@@ -8,4 +8,6 @@ edition = "2018"
 name = "telemetrix"
 
 [dependencies]
+libc = "0.1.12"
+usb = "0.2.2"
 unbounded-gpsd = "0.4.3"
