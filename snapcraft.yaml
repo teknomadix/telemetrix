@@ -18,6 +18,7 @@ parts:
     plugin: rust
     source: .
     stage-packages:
+      - libudev-dev
       - gpsd
 
 apps:
