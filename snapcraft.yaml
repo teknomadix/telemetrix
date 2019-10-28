@@ -17,8 +17,9 @@ parts:
   telemetrix:
     plugin: rust
     source: .
-    stage-packages:
+    build-packages:
       - libudev-dev
+    stage-packages:
       - gpsd
 
 apps:
