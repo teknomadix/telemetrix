@@ -9,5 +9,12 @@ fn main() {
 
     for device in enumerator.scan_devices().unwrap() {
         println!("found device: {:?}", device.syspath());
+        println!("parent: {:?}", device.parent().unwrap().sysname());
+        for property in device.properties() {
+            println!("{:?} = {:?}", property.name(), property.value());
+        }
+        for attribute in device.attributes() {
+            println!("{:?} = {:?}", attribute.name(), attribute.value());
+        }
     }
 }
