@@ -4,7 +4,7 @@ summary: Telemetry and battery monitoring
 description: |
   Work in progress
 
-# grade: devel
+grade: devel
 
 confinement: devmode
 base: core18
