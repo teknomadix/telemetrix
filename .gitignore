@@ -4,3 +4,5 @@
 /prime
 /stage
 *.snap
+.DS_Store
+._.DS_Store
