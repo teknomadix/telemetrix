@@ -1,25 +1,24 @@
 extern crate udev;
 
+// TODO: use `failure` crate for error interop
 fn main() -> Result<(), udev::Error> {
     println!("Hello, world!");
-    udev::Context::new()
-        .and_then(|context| udev::Enumerator::new(&context))
-        .and_then(|mut enumerator| {
-            enumerator
-                .match_subsystem("tty")
-                .and(enumerator.scan_devices())
-        })
-        .and_then(|devices| {
-            devices.for_each(|device| {
-                println!("found device: {:?}", device.syspath());
-                // println!("parent: {:?}", device.parent().unwrap().sysname());
-                device.properties().for_each(|property| {
-                    println!("{:?} = {:?}", property.name(), property.value());
-                });
-                device.attributes().for_each(|attribute| {
-                    println!("{:?} = {:?}", attribute.name(), attribute.value());
-                });
-            });
-            Ok(())
-        })
+    let context = udev::Context::new()?;
+    let mut enumerator = udev::Enumerator::new(&context)?;
+
+    enumerator.match_subsystem("tty")?;
+    let devices = enumerator.scan_devices()?;
+
+    for device in devices {
+        println!("found device: {:?}", device.syspath());
+        // println!("parent: {:?}", device.parent().unwrap().sysname());
+        for property in device.properties() {
+            println!("{:?} = {:?}", property.name(), property.value());
+        }
+        for attribute in device.attributes() {
+            println!("{:?} = {:?}", attribute.name(), attribute.value());
+        }
+    }
+
+    Ok(())
 }
