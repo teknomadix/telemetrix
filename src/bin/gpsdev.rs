@@ -9,15 +9,25 @@ fn main() -> Result<(), udev::Error> {
     enumerator.match_subsystem("tty")?;
     let devices = enumerator.scan_devices()?;
 
-    for device in devices {
-        println!("found device: {:?}", device.syspath());
-        // println!("parent: {:?}", device.parent().unwrap().sysname());
-        for property in device.properties() {
-            println!("{:?} = {:?}", property.name(), property.value());
-        }
-        for attribute in device.attributes() {
-            println!("{:?} = {:?}", attribute.name(), attribute.value());
-        }
+    let gps_devices = devices.filter(|device| {
+        // u-blox AG, u-blox 7 [linux module: cdc_acm]
+        device
+            .properties()
+            .find(|prop| prop.name() == "ID_VENDOR_ID" && prop.value() == "1546")
+            .is_some()
+            && device
+                .properties()
+                .find(|prop| prop.name() == "ID_MODEL_ID" && prop.value() == "01a7")
+                .is_some()
+    });
+
+    for device in gps_devices {
+        let dev_name = device
+            .properties()
+            .find(|prop| prop.name() == "DEVNAME")
+            .map(|prop| prop.value().to_os_string());
+
+        println!("GPS found device: {:?}", dev_name);
     }
 
     Ok(())
