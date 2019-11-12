@@ -10,3 +10,4 @@ name = "telemetrix"
 [dependencies]
 udev = "0.2"
 unbounded-gpsd = "0.4.3"
+tokio = "0.1"
